@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <center>
+    <h1>ADMIN page</h1>
+
+    <h1 style="color:red">list of buyers</h1>
+    <% @buyers.each do |buyer| %>
+      <tr>
+        <h1>email: <%=buyer.email%></h1>
+        <td><%= link_to 'Show', buyer %></td>
+        <td><%= link_to 'Edit', edit_buyer_path(buyer) %></td>
+        <td><%= link_to 'Destroy', buyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      </br>
+    <% end %>
+    </br>
+    <h1 style="color:red">list of sellers</h1>
+    <% @sellers.each do |seller| %>
+      <tr>
+        <h1>email: <%=seller.email%></h1>
+        <td><%= link_to 'Show', seller %></td>
+        <td><%= link_to 'Edit', edit_seller_path(seller) %></td>
+        <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      </br>
+    <% end %>
+    </br>
+    <h1>crud for categories</h1>
+    <%= link_to 'Categories', categories_path%>
+    </br>
+    <h1>crud for products</h1>
+    <%= link_to 'Products', products_path%>
+    </br>
+    <h1>rud for sales</h1>
+    <%= link_to 'Sales', sales_path%>
+    </center>
+  </body>
+</html>

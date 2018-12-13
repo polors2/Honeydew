@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <center><h1>landing page</h1>
+    <%= link_to "Register as Buyer", newbuyer_url %></br>
+    <%= link_to "Register as Seller", newseller_url %></br>
+    <%= link_to "Login", login_path %>
+
+    <h1>show available products here (no buyer id)</h1>
+    <% @sale.each do |sale| %>
+    <tr>
+      <% if !sale.buyer_id? %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+
+
+          <%end%>    </br><%end%>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </center>
+  </body>
+</html>

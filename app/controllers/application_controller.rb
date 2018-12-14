@@ -31,7 +31,25 @@ class ApplicationController < ActionController::Base
   end
 
   def anyone_in?
-    !!current_seller && !!current_buyer && !!current_admin
+    admin_logged_in? || buyer_logged_in? || seller_logged_in?
+  end
+
+  def require_seller
+    if !seller_logged_in?
+      redirect_to login_path
+    end
+  end
+
+  def require_buyer
+    if !buyer_logged_in?
+      redirect_to login_path
+    end
+  end
+
+  def require_admin
+    if !admin_logged_in?
+      redirect_to login_path
+    end
   end
 
   def require_user

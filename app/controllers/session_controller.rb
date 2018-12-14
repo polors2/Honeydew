@@ -6,7 +6,7 @@ class SessionController < ApplicationController
     session[:buyer_id] = nil
     session[:seller_id] = nil
     session[:admin_id] = nil
-    flash[:notice] = "Logged out"
+    # flash[:notice] = "Logged out"
     redirect_to root_path
   end
   def create

@@ -1,5 +1,14 @@
 class ProductsController < ApplicationController
+  before_action :require_user
+  before_action :admin_logged_in?
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+
+  def require_admin
+    if current_user != nil and current_user_admin?
+      flash[:notice] = 'You can only delete or edit your own car log'
+      redirect_to root_path
+    end
+  end
 
   # GET /products
   # GET /products.json

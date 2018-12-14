@@ -1,6 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_user
   # GET /sales
   # GET /sales.json
   def index
@@ -25,6 +25,7 @@ class SalesController < ApplicationController
   # POST /sales.json
   def create
     @sale = Sale.new(sale_params)
+    @sale.seller_id = session[:seller_id]
 
     respond_to do |format|
       if @sale.save
@@ -40,6 +41,7 @@ class SalesController < ApplicationController
   # PATCH/PUT /sales/1
   # PATCH/PUT /sales/1.json
   def update
+    #if seller nakalogin
     respond_to do |format|
       if @sale.update(sale_params)
         format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
@@ -48,6 +50,12 @@ class SalesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
+    # else if buyer nakalogin
+      #@sale.buyer_id = session[id]
+      #if @sale.save
+        #etc
+      #end
+    #end
     end
   end
 
@@ -69,6 +77,6 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:seller_id, :product_id, :price, :buyer_id)
+      params.require(:sale).permit(:product_id, :price, :buyer_id)
     end
 end

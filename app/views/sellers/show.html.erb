@@ -1,4 +1,12 @@
+
 <p id="notice"><%= notice %></p>
 <h1>Seller: <%=@seller.email%></h1>
-<%= link_to 'Edit', edit_seller_path(@seller) %> |
-<%= link_to 'Back to Home', root_path %>
+
+<%= link_to 'Edit my Account', edit_seller_path(@seller) %>
+<%= link_to 'Back to Home', seller_path(@seller.id) %>
+</br>
+<h1>cr for products</h1>
+<%= link_to 'Products', products_path%>
+</br>
+<h1>crud for sales</h1>
+<%= link_to 'Sales', sales_path%>

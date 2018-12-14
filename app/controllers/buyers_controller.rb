@@ -1,5 +1,7 @@
 class BuyersController < ApplicationController
   before_action :set_buyer, only: [:show, :edit, :update, :destroy]
+  before_action :require_user
+  before_action :buyer_logged_in?
 
   # GET /buyers
   # GET /buyers.json
@@ -10,6 +12,7 @@ class BuyersController < ApplicationController
   # GET /buyers/1
   # GET /buyers/1.json
   def show
+    @sale = Sale.all
   end
 
   # GET /buyers/new
@@ -19,6 +22,12 @@ class BuyersController < ApplicationController
 
   # GET /buyers/1/edit
   def edit
+  end
+
+  def buy
+    @sale = Sale.find(params[:id])
+    @sale.buyer_id = session[:buyer_id]
+    redirect_to buyer_path(session[:buyer_id])
   end
 
   # POST /buyers
@@ -70,5 +79,9 @@ class BuyersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def buyer_params
       params.require(:buyer).permit(:first_name,:last_name, :email, :password,:birthday)
+    end
+
+    def sale_params
+      params.require(:sale).permit(:seller_id, :product_id, :price, :buyer_id)
     end
 end

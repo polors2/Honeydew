@@ -1,4 +1,37 @@
 <p id="notice"><%= notice %></p>
 <h1>Buyer: <%=@buyer.email%></h1>
-<%= link_to 'Edit', edit_buyer_path(@buyer) %> |
-<%= link_to 'Back to Home', root_path %>
+
+<%= link_to 'Edit my Profile', edit_buyer_path(@buyer) %> |
+<%= link_to 'Back to Home', buyer_path(@buyer.id) %>
+<h1>show available products</h1>
+
+<h1>available products</h1>
+<tbody>
+  <% @sale.each do |sale| %>
+  <% if !sale.buyer_id? %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <%= form_for sale do |s| %>
+      <%= s.hidden_field :buyer_id, value: session[:buyer_id]%>
+      <%= s.submit "Buy" %>
+      <%end%>
+      <!-- <td><button type="submit">Buy</button></td> -->
+  <%end%>
+    </br>
+  <%end%>
+</tbody>
+
+
+<h1>show purchases</h1>
+<tbody>
+  <% @sale.each do |sale| %>
+  <% if sale.buyer_id? %>
+    <% if sale.buyer_id == session[:buyer_id] %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <td>Price: <%= sale.price%></td>
+    <%end%>
+  <%end%>
+    </br>
+  <%end%>
+</tbody>

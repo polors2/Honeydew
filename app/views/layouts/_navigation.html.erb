@@ -1,5 +1,5 @@
 <% if buyer_logged_in? || seller_logged_in? || admin_logged_in? %>
-<center></br><%= link_to "Logout", logout_path %><%if admin_logged_in? %><%= link_to " Home", dashboard_path(session[:admin_id]) %><%end%><%if buyer_logged_in? %><%= link_to " Home", root_path %><%end%><%if seller_logged_in? %><%= link_to " Home", root_path %><%end%></center>
+<center></br><%= link_to "Logout", logout_path %><%if admin_logged_in? %><%= link_to " Home", dashboard_path(session[:admin_id]) %><%end%><%if buyer_logged_in? %><%= link_to " Back to Home", buyer_path(session[:buyer_id]) %><%end%><%if seller_logged_in? %><%= link_to ' Back to Home', seller_path(session[:seller_id]) %><%end%></center>
 <%end%>
 <% if buyer_logged_in? %>
 <h1>buyer logged in</h1>

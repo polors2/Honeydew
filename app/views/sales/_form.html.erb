@@ -12,12 +12,10 @@
     </div>
   <% end %>
   <p>
+  <% if admin_logged_in? %>
   <%= form.label :seller_id %>
   <%= form.select(:seller_id, Seller.all.pluck(:email, :id))%>
-  </p>
-  <p>
-  <%= form.label :buyer_id %>
-  <%= form.select(:buyer_id, Buyer.all.pluck(:email, :id), {:include_blank => 'none'})%>
+  <%end%>
   </p>
   <p>
   <%= form.label :product_id %>

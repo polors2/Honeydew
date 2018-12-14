@@ -1,4 +1,4 @@
-<h1>New Sale</h1>
+<h1>New Sale for <%= Seller.find(session[:seller_id]).email %></h1>
 
 <%= render 'form', sale: @sale %>
 

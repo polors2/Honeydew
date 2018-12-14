@@ -12,6 +12,7 @@
   <tbody>
     <% @sales.each do |sale| %>
       <tr>
+        <%if admin_logged_in? %>
         <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
         <td>Product: <%= Product.find(sale.product_id).name  %></td>
         <% if sale.buyer_id? %>
@@ -19,11 +20,45 @@
         <%end%>
         <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
         <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% if seller_logged_in? %>
+<h1>sold products</h1>
+<tbody>
+  <% @sales.each do |sale| %>
+  <% if sale.buyer_id? %>
+    <% if sale.seller_id == session[:seller_id] %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <td>Buyer: <%= Buyer.find(sale.buyer_id).email  %></td>
+      <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+      <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%end%>
+  <%end%>
+    </br>
+  <%end%>
+</tbody>
 
+<h1>available products</h1>
+<tbody>
+  <% @sales.each do |sale| %>
+  <% if !sale.buyer_id? %>
+    <% if sale.seller_id == session[:seller_id] %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <td>Price: <%= sale.price  %></td>
+      <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+      <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%end%>
+  <%end%>
+    </br>
+  <%end%>
+</tbody>
+<%end%>
 <br>
-
+<% if seller_logged_in? %>
 <%= link_to 'New Sale', new_sale_path %>
+<%end%>

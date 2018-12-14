@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<%if seller_logged_in? || admin_logged_in? %>
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>
+<%end%>
+<%if buyer_logged_in?%>
+<h1>Nice! You just bought a <%=Product.find(@sale.product_id).name%></h1>
+<%= link_to 'Back to Home', buyer_path %>
+<%end%>

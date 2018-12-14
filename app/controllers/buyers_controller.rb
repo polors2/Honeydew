@@ -2,7 +2,7 @@ class BuyersController < ApplicationController
   before_action :set_buyer, only: [:show, :edit, :update, :destroy]
   before_action :require_user, except: [:new]
   before_action :require_logged_out, only: [:new]
-  before_action :require_buyer, except: [:edit]
+  before_action :require_buyer, except: [:edit, :new]
   before_action :buyer_or_admin, only: [:edit]
   before_action :require_admin, only: [:index]
 

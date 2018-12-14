@@ -1,6 +1,23 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
   before_action :require_user
+  before_action :seller_or_admin, only: [:index]
+  before_action :require_same_user, only: [:edit, :update, :delete, :show]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+  def record_not_found
+    redirect_to edit_sales_path(params[:id])
+  end
+
+  def require_same_user
+    if seller_logged_in?
+    @curuser = Seller.find(session[:seller_id])
+    end
+    if session[:seller_id] != @sale.seller_id && !admin_logged_in?
+      redirect_to sellers_path(session[:seller_id])
+    end
+end
+
   # GET /sales
   # GET /sales.json
   def index

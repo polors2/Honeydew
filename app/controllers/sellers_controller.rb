@@ -1,5 +1,20 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:new]
+  before_action :require_logged_out, only: [:new]
+  before_action :seller_logged_in?
+  before_action :require_admin, only: [:index]
+  before_action :require_seller, only: [:show]
+  before_action :require_same_user, only: [:edit, :update, :delete, :show]
+
+  def require_same_user
+    if seller_logged_in?
+    @curuser = Seller.find(session[:seller_id])
+    end
+    if @curuser != Seller.find(params[:id]) && !admin_logged_in?
+      redirect_to sellers_path(session[:seller_id])
+    end
+end
 
   # GET /sellers
   # GET /sellers.json

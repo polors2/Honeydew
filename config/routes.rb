@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   post '/login', to: 'session#create'
   get '/logout', to: 'session#destroy'
   get '/dashboard', to: 'page#admin'
+  get '/forbidden', to: 'page#403'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -36,19 +36,52 @@ class ApplicationController < ActionController::Base
 
   def require_seller
     if !seller_logged_in?
-      redirect_to login_path
+      redirect_to forbidden_url
     end
   end
 
   def require_buyer
     if !buyer_logged_in?
-      redirect_to login_path
+      redirect_to forbidden_url
     end
   end
 
   def require_admin
     if !admin_logged_in?
-      redirect_to login_path
+      redirect_to forbidden_url
+    end
+  end
+
+  def only_seller
+    if !seller_logged_in?
+      redirect_to forbidden_url
+    end
+  end
+  def only_buyer
+    if !buyer_logged_in?
+      redirect_to forbidden_url
+    end
+  end
+  def only_admin
+    if !admin_logged_in?
+      redirect_to forbidden_url
+    end
+  end
+
+  def buyer_or_admin
+    if !admin_logged_in? && !buyer_logged_in?
+      redirect_to forbidden_url
+    end
+  end
+  def seller_or_admin
+    if !admin_logged_in? && !seller_logged_in?
+      redirect_to forbidden_url
+    end
+  end
+
+  def require_logged_out
+    if !seller_logged_in? || !buyer_logged_in? || !admin_logged_in?
+
     end
   end
 

@@ -5,5 +5,5 @@
 <%end%>
 <%if buyer_logged_in?%>
 <h1>Nice! You just bought a <%=Product.find(@sale.product_id).name%></h1>
-<%= link_to 'Back to Home', buyer_path %>
+<%= link_to 'Back to Home', buyer_path(session[:buyer_id]) %>
 <%end%>

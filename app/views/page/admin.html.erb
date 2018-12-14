@@ -12,7 +12,6 @@
     <% @buyers.each do |buyer| %>
       <tr>
         <h1>email: <%=buyer.email%></h1>
-        <td><%= link_to 'Show', buyer %></td>
         <td><%= link_to 'Edit', edit_buyer_path(buyer) %></td>
         <td><%= link_to 'Destroy', buyer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -23,7 +22,6 @@
     <% @sellers.each do |seller| %>
       <tr>
         <h1>email: <%=seller.email%></h1>
-        <td><%= link_to 'Show', seller %></td>
         <td><%= link_to 'Edit', edit_seller_path(seller) %></td>
         <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

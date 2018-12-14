@@ -32,12 +32,22 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     respond_to do |format|
-      if @product.save
-        format.html { redirect_to seller_path(session[:seller_id]), notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+      if seller_logged_in?
+        if @product.save
+          format.html { redirect_to seller_path(session[:seller_id]), notice: 'Product was successfully created.' }
+          format.json { render :show, status: :created, location: @product }
+        else
+          format.html { render :new }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
+      elsif admin_logged_in?
+        if @product.save
+          format.html { redirect_to products_path, notice: 'Product was successfully created.' }
+          format.json { render :show, status: :created, location: @product }
+        else
+          format.html { render :new }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

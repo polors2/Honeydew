@@ -6,15 +6,23 @@ class SalesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def record_not_found
-    redirect_to edit_sales_path(params[:id])
+    redirect_to dashboard_path(session[:admin_id])
   end
 
   def require_same_user
     if seller_logged_in?
     @curuser = Seller.find(session[:seller_id])
-    end
+
     if session[:seller_id] != @sale.seller_id && !admin_logged_in?
       redirect_to sellers_path(session[:seller_id])
+    end
+  end
+    if buyer_logged_in?
+      @curuser = Buyer.find(session[:buyer_id])
+
+    if session[:buyer_id] != @sale.buyer_id && !admin_logged_in?
+      redirect_to buyers_path(session[:buyer_id])
+    end
     end
 end
 

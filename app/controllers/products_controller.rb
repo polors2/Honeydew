@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :require_user
   before_action :admin_logged_in?
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :seller_or_admin, only: [:index, :show, :edit]
+  before_action :seller_or_admin, only: [:new, :index, :show]
   before_action :require_admin, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to seller_path(session[:seller_id]), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }

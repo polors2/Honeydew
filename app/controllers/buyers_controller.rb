@@ -5,6 +5,16 @@ class BuyersController < ApplicationController
   before_action :require_buyer, except: [:edit, :new]
   before_action :buyer_or_admin, only: [:edit]
   before_action :require_admin, only: [:index]
+  before_action :require_same_user, only: [:edit, :update, :delete, :show]
+
+  def require_same_user
+    if buyer_logged_in?
+    @curuser = Buyer.find(session[:buyer_id])
+    end
+    if @curuser != Buyer.find(params[:id]) && !admin_logged_in?
+      redirect_to buyer_path(session[:buyer_id])
+    end
+  end
 
   # GET /buyers
   # GET /buyers.json

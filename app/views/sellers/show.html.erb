@@ -10,3 +10,57 @@
 </br>
 <h1>crud for sales</h1>
 <%= link_to 'Sales', sales_path%>
+<h1>all my products</h1>
+<table>
+<tbody>
+  <% @sale.each do |sale| %>
+    <tr>
+      <%if sale.seller_id == session[:seller_id] %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <% if sale.buyer_id? %>
+      <td>Buyer: <%= Buyer.find(sale.buyer_id).email  %></td>
+      <%end%>
+      <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+      <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+<h1>available for sale</h1>
+<table>
+<tbody>
+  <% @sale.each do |sale| %>
+    <tr>
+      <%if sale.seller_id == session[:seller_id] && sale.buyer_id == nil %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <% if sale.buyer_id? %>
+      <td>Buyer: <%= Buyer.find(sale.buyer_id).email  %></td>
+      <%end%>
+      <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+      <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+<h1>sold</h1>
+<table>
+<tbody>
+  <% @sale.each do |sale| %>
+    <tr>
+      <%if sale.seller_id == session[:seller_id] && sale.buyer_id != nil %>
+      <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
+      <td>Product: <%= Product.find(sale.product_id).name  %></td>
+      <% if sale.buyer_id? %>
+      <td>Buyer: <%= Buyer.find(sale.buyer_id).email  %></td>
+      <%end%>
+      <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+      <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
+    </tr>
+  <% end %>
+</tbody>
+</table>

@@ -14,7 +14,7 @@ class SellersController < ApplicationController
     if @curuser != Seller.find(params[:id]) && !admin_logged_in?
       redirect_to sellers_path(session[:seller_id])
     end
-end
+  end
 
   # GET /sellers
   # GET /sellers.json
@@ -25,6 +25,7 @@ end
   # GET /sellers/1
   # GET /sellers/1.json
   def show
+    @sale = Sale.all
   end
 
   # GET /sellers/new

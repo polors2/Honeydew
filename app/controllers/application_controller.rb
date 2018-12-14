@@ -81,10 +81,10 @@ class ApplicationController < ActionController::Base
 
   def require_logged_out
     if seller_logged_in?
-        redirect_to sellers_path(session[:seller_id])
+        redirect_to seller_path(session[:seller_id])
     elsif
       buyer_logged_in?
-        redirect_to buyers_path(session[:buyer_id])
+        redirect_to buyer_path(session[:buyer_id])
     elsif admin_logged_in?
         redirect_to dashboard_path(session[:admin_id])
     end

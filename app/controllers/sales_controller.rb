@@ -2,7 +2,7 @@ class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
   before_action :require_user
   before_action :seller_or_admin, only: [:index]
-  before_action :require_same_user, only: [:edit, :update, :delete, :show]
+  before_action :require_same_user, only: [:edit, :delete, :show]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def record_not_found
@@ -14,14 +14,14 @@ class SalesController < ApplicationController
     @curuser = Seller.find(session[:seller_id])
 
     if session[:seller_id] != @sale.seller_id && !admin_logged_in?
-      redirect_to sellers_path(session[:seller_id])
+      redirect_to seller_path(session[:seller_id])
     end
   end
     if buyer_logged_in?
       @curuser = Buyer.find(session[:buyer_id])
 
     if session[:buyer_id] != @sale.buyer_id && !admin_logged_in?
-      redirect_to buyers_path(session[:buyer_id])
+      redirect_to buyer_path(session[:buyer_id])
     end
     end
 end

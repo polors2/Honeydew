@@ -11,6 +11,7 @@
   <% if !sale.buyer_id? %>
       <td style='color:red'>Seller: <%= Seller.find(sale.seller_id).email%></td>
       <td>Product: <%= Product.find(sale.product_id).name  %></td>
+            <td>Price: <%= sale.price%></td>
       <%= form_for sale do |s| %>
       <%= s.hidden_field :buyer_id, value: session[:buyer_id]%>
       <%= s.submit "Buy" %>

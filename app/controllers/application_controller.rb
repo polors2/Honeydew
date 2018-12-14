@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_buyer, :current_seller, :buyer_logged_in?, :seller_logged_in?, :anyone_in?, :admin_logged_in?
+  helper_method :current_buyer, :current_seller, :buyer_logged_in?, :seller_logged_in?, :anyone_in?, :admin_logged_in?, :current_admin
 
   def admin
     @buyers = Buyer.all
